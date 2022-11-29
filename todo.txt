@@ -1,0 +1,5 @@
+I keep tgrack fot he tasks I need to do here
+Nov 29
+- ✅ figure out how to store the price - numeric
+- ✅ create all tables
+- do the rest
