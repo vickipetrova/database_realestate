@@ -22,6 +22,8 @@ class Agent(Base):  # Python class name
     phone_number = Column(String)
     email_address = Column(String)
 
+    offices = relationship("Office", secondary="AgentToOffice", back_populates = 'agents')
+
     def __repr__(self):
         return "Agent(agent_id={0}, first_name={1}, last_name={2}, phone_number={3}, email_address={4})".format(self.agent_id, self.first_name, self.last_name, self.phone_number, self.email_address)
 
@@ -32,25 +34,20 @@ class Office(Base):
     name = Column(String)
     zipcode = Column(Integer)
 
+    agents = relationship("Agent", secondary="AgentToOffice", back_populates = 'offices')
+
     def __repr__(self):
         return "Office(office_id={0}, name = {1}, zipcode={2})".format(self.office_id, self.name, self.zipcode)
 
-
-class AgentToOffice(Base):
-    __tablename__ = 'agent_to_office'
-    
-    agent_id = Column(Text(length=36), ForeignKey(
-                'agents.agent_id', ondelete='CASCADE'), 
-                primary_key = True)
-    office_id = Column(Text(length=36), ForeignKey(
-                'offices.office_id', ondelete='CASCADE'), 
-                primary_key = True)
-
-    # office = relationship('Office', backref='agents')  # Need to google this
-
-    def __repr__(self):
-        return "AgentToOffice(agent_id={0}, office_id = {1})".format(self.agent_id, self.office_id)
-
+# Assossiaction table between Agent and Office class for many-to-many relationship.
+# Documentation: https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html
+agent_to_office = Table('agent_to_office', 
+    Base.metadata,
+    Column('agent_id', Text(length=36), ForeignKey(
+                'agents.agent_id', ondelete='CASCADE')),
+    Column('office_id', Text(length=36), ForeignKey(
+                'offices.office_id', ondelete='CASCADE'))
+)
 
 class House(Base):  
     __tablename__='houses'  
@@ -124,16 +121,6 @@ class Sale(Base):
     def __repr__(self):
         return "Sale(sale_id={0}, listing_id={1}, buyer_id={2}, price={3}, sale_date = {4})".format(self.sale_id, self.listing_id, self.buyer_id, self.price, self.sale_date)
 
-class Buyer(Base):  
-    __tablename__='buyers'  
-    buyer_id = Column(Text(length=36), primary_key=True)
-    first_name = Column(String)
-    last_name = Column(String)
-    email_address= Column(String)
-    phone_number = Column(String)
-
-    def __repr__(self):
-        return "Buyer(buyer_id={0}, first_name={1}, last_name={2}, email_address={3}, phone_number = {4})".format(self.buyer_id, self.first_name, self.last_name, self.email_address, self.phone_number)    
 
 class AgenMonthlyCommission(Base):  
     __tablename__='agentmonthlycommissions'  
@@ -156,4 +143,4 @@ class CommissionRate(Base):
     rate = Column(Numeric(3,2), nullable=False)
 
     def __repr__(self):
-        return "Buyer(buyer_id={0}, first_name={1}, last_name={2}, email_address={3}, phone_number = {4})".format(self.buyer_id, self.first_name, self.last_name, self.email_address, self.phone_number)    
+        return "Commissionrate(price_min={0}, price_max={1}, rate={2})".format(self.price_min, self.price_max, self.rate)    

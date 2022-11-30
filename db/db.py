@@ -1,7 +1,8 @@
 from sqlalchemy.orm import sessionmaker
-from models import Base
+from db.models import Base
 
 def init_db(engine):
+    """A function to initialize the tables of the databse and create the session."""
     # Delete tables
     Base.metadata.drop_all(bind=engine)   
     # Create tables
@@ -12,3 +13,6 @@ def init_db(engine):
     session = Session()
 
     return session
+
+
+

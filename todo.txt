@@ -2,4 +2,8 @@ I keep tgrack fot he tasks I need to do here
 Nov 29
 - ✅ figure out how to store the price - numeric
 - ✅ create all tables
-- do the rest
+- create functions to insert data
+- insert commissions 
+- generate random data to insert 
+- create functions for getting the reports
+- figure out the autocommit thing and transactions
