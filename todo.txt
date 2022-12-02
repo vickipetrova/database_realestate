@@ -27,3 +27,16 @@ Still left to do:
 - indexes
 - testing
 - figure out the autocommit thing and transactions
+
+
+Dec 2 
+Plan:
+    -22:00 do readme, LO tags, explanations, etc. 
+    -until 15:00 - add flask and frontend - if I can't do it by 15:00, then give up on it
+        - 11:00-12:00 go through the tutorial, then code
+    -16:00-19:00 - finalize everything
+Tasks:
+- indexes - https://stackoverflow.com/questions/107132/what-columns-generally-make-good-indexes use as a reference - 1 hour
+- testing - 1 hour
+- figure out the autocommit thing and transactions - 1 hour
+- figure out the bug with the imports (if flask doesn't work)
