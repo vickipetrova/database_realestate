@@ -1,9 +1,29 @@
-I keep tgrack fot he tasks I need to do here
+I keep track fot he tasks I need to do here
 Nov 29
 - ✅ figure out how to store the price - numeric
 - ✅ create all tables
-- create functions to insert data
-- insert commissions 
-- generate random data to insert 
+- 🔄 create functions to insert data - started doing this but I don't actually need them
+- insert commissions ASK Prof whether to make a seperate table for the commissions or not
+- 🔄 generate random data to insert 
 - create functions for getting the reports
+- figure out the autocommit thing and transactions
+- fix the relationship between the agent office and agenttooffice tables - shouldn't be able to add rows only to agenttooffice table
+- figure out the foreign keys for the rest of the tables too
+
+Nov 30
+- insert commissions ASK Prof whether to make a seperate table for the commissions or not
+- 🔄 generate random data to insert 
+- create functions for getting the reports - Queries
+- figure out the autocommit thing and transactions
+- ✅ fix the relationship between the agent office and agenttooffice tables - shouldn't be able to add rows only to agenttooffice table
+- ✅ figure out the foreign keys for the rest of the tables too
+
+
+Dec 1
+- ✅ insert commissions ASK Prof whether to make a seperate table for the commissions or not - handle commissions in python (easiest)
+- ✅ create functions for getting the reports - Queries are done! 
+
+Still left to do:
+- indexes
+- testing
 - figure out the autocommit thing and transactions

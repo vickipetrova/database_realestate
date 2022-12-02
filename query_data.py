@@ -1,0 +1,31 @@
+from queries.query_functions import *
+from insert_data import Session
+
+# Create session
+session = Session()
+
+print("_____________________________________")
+print("Begin QUERY 1")
+print("Find the top 5 offices with the most sales for that month.")
+get_top_offices(session, 12, 2022)
+print("_____________________________________")
+print("")
+print("Begin QUERY 2")
+print("Find the top 5 estate agents who have sold the most for the month (include their contact details and their sales details so that it is easy contact them and congratulate them).")
+get_top_agents(session, 12, 2022)
+print("_____________________________________")
+print("")
+print("Begin QUERY 3")
+print("Calculate the commission that each estate agent must receive and store the results in a separate table.")
+generate_monthly_commissions(session, 12, 2022)
+print("_____________________________________")
+print("")
+print("Begin QUERY 4")
+print("For all houses that were sold that month, calculate the average number of days on the market.")
+get_market_days(session, 12, 2022)
+print("_____________________________________")
+print("")
+print("Begin QUERY 5")
+print("For all houses that were sold that month, calculate the average selling price.")
+get_monthly_sales_average_price(session, 12, 2022)
+get_monthly_sales_average_price(session, 11, 2022)
