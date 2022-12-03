@@ -43,7 +43,7 @@ class AppTest(TestCase):
 
         self.assertEqual(0, result)
 
-    def test_sale_duartion1(self):
+    def test_sale_duration1(self):
         """Tests the get_market_days query function when there are sales in the month."""
 
         result = queries.get_market_days(db = db, month = 12, year = 2022)
@@ -51,7 +51,7 @@ class AppTest(TestCase):
         # all listings were created on 2022/12/1  and all were sold on 2022/12/3 which is 2 days
         self.assertEqual(2, result)
 
-    def test_sale_duartion2(self):
+    def test_sale_duration2(self):
         """Tests the get_market_days query function when there are NO sales in the month."""
 
         result = queries.get_market_days(db = db, month = 11, year = 2022)
@@ -90,7 +90,7 @@ class AppTest(TestCase):
         self.assertEqual(10000, float(result[1][3]))
         self.assertEqual(10000, float(result[2][3]))
 
-    def test_agent_commission(self):
+    def test_agent_commission1(self):
         """Tests the agent commission table and query function """
         result = queries.generate_monthly_commissions(db = db, month = 12, year = 2022)
         # Check that commissions loaded for all 5 agents
@@ -99,6 +99,18 @@ class AppTest(TestCase):
         self.assertEqual(10000*0.1*3, float(result[0][3]))
         # The second row should have 0 commission (no sales)
         self.assertEqual(0, result[1][3])
+
+    def test_agent_commission2(self):
+        """Tests the agent commission table and query function """
+        result = queries.generate_monthly_commissions(db = db, month = 11, year = 2022)
+        # Check that commissions loaded for all 5 agents
+        self.assertEqual(5, len(result))
+        # No agent sold anything
+        self.assertEqual(0, float(result[0][3]))
+        self.assertEqual(0, float(result[1][3]))
+        self.assertEqual(0, float(result[2][3]))
+        self.assertEqual(0, result[1][3])
+        self.assertEqual(0, float(result[4][3]))
 
 if __name__ == '__main__':
     unittest.main()

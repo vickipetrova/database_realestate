@@ -55,7 +55,7 @@ with app.app_context():
     print(db.session.query(Buyer).all())
 
 
-    print("\n 👱‍♂️ Sellers associated with listings table before any sales:\n")
+    print("\n ⭐️ Listings ⭐️\n")
     print(db.session.query(Listing).all())
 
 sales = generate_sale()

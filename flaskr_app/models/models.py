@@ -117,7 +117,7 @@ class Sale(db.Model):
     sale_id = db.Column(db.Text(length=36), primary_key=True)
     listing_id = db.Column(db.Text(length=36), db.ForeignKey(
                 'listings.listing_id', ondelete='CASCADE'), 
-                primary_key = True) #
+                primary_key = True) 
     buyer_id = db.Column(db.Text(length=36), db.ForeignKey(
                 'buyers.buyer_id', ondelete='CASCADE'))
 

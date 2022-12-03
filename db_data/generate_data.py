@@ -109,7 +109,7 @@ def generate_buyer(n):
         buyer_id = str(uuid.uuid4())
         first_name = fake.first_name()
         last_name = fake.last_name()
-        email = first_name + last_name + random.choice(["@gmail.com", "@yahoo.com", "@minerva.edu", "@agency.com", "outlook.com" ])
+        email = first_name + last_name + random.choice(["@gmail.com", "@yahoo.com", "@minerva.edu", "@agency.com", "@outlook.com" ])
         phone = '+'+''.join(random.choice("0123456789") for _ in range(10))
         
         buyer = Buyer(buyer_id = str(buyer_id),

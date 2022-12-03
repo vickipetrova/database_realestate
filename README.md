@@ -66,5 +66,21 @@ pip3 install -r requirements.txt
 python3 test.py
 ```
 
+
+If you want to generate the coverage report then use the following commands.
+First install coverage:
+```bash
+pip install coverage
+```
+Then run the tests:
+```bash
+python -m coverage run -m unittest test.py
+```
+
+Finally get the repor:
+```bash
+python -m coverage report -m
+```
+
 # UML Diagram of the Database Schema
 ![UML](uml.png "UML Diagram")
