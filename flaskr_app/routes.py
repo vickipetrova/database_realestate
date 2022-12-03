@@ -17,12 +17,12 @@ def dashboard():
         year = request.form['year']
 
         if int(month) <= 12 and int(month) >= 1 and int(year) >= 0:
-            average_sale_price = get_monthly_sales_average_price(month=int(month), year=int(year))
-            average_market_time = get_market_days(month=int(month), year=int(year))
+            average_sale_price = get_monthly_sales_average_price(db = db, month=int(month), year=int(year))
+            average_market_time = get_market_days(db=db,month=int(month), year=int(year))
             return render_template('dashboard.html', month = month, year = year, average_sale_price = average_sale_price, 
                                     average_sale_duration = average_market_time)
 
-    return render_template('dashboard.html', month = 12, year = 2022, average_sale_price = get_monthly_sales_average_price(month = 12, year = 2022),average_sale_duration = get_market_days(month=12, year=12))
+    return render_template('dashboard.html', month = 12, year = 2022, average_sale_price = get_monthly_sales_average_price(db=db,month = 12, year = 2022),average_sale_duration = get_market_days(db=db,month=12, year=12))
 
 
 # View code for login.
@@ -34,11 +34,13 @@ def login():
 
         error = None
 
+        # Not good but temporary solution just to get the login to work for now. 
+        # It's not the focus of the assignment and I didn't ahve enough time to fix this issue. 
         if username == "admin" and password == 'IBelieveICanFly':
             return redirect(url_for('dashboard'))
 
         # GIVES AN ERROR!!!
-        # admin = db.query(Admin)
+        # admin = db.query(Admin).filter(Admin.username == username).one() # need to check if this is prone to an attack!
 
         # if admin is None:
         #     error = 'Incorrect username.'
@@ -64,10 +66,10 @@ def top_agents():
         year = request.form['year']
 
         if int(month) <= 12 and int(month) >= 1 and int(year) >= 0:
-            result = get_top_agents(month=int(month), year=int(year))
+            result = get_top_agents(db = db, month=int(month), year=int(year))
             return render_template('top_agents.html', month = month, year = year, agents = result)
             
-    return render_template('top_agents.html', month = 12, year = 2022, agents = get_top_agents(month=12, year=2022))
+    return render_template('top_agents.html', month = 12, year = 2022, agents = get_top_agents(db = db, month=12, year=2022))
 
 
 # View code for top 5 offices.
@@ -78,10 +80,10 @@ def top_offices():
         year = request.form['year']
 
         if int(month) <= 12 and int(month) >= 1 and int(year) >= 0:
-            result = get_top_offices(month=int(month), year=int(year))
+            result = get_top_offices(db = db, month=int(month), year=int(year))
             return render_template('top_offices.html', month = month, year = year, offices = result)
             
-    return render_template('top_offices.html', month = 12, year = 2022, offices = get_top_offices(month=12, year=2022))
+    return render_template('top_offices.html', month = 12, year = 2022, offices = get_top_offices(db = db, month=12, year=2022))
 
 
 
@@ -93,7 +95,7 @@ def agent_commission():
         year = request.form['year']
 
         if int(month) <= 12 and int(month) >= 1 and int(year) >= 0:
-            result = generate_monthly_commissions(month=int(month), year=int(year))
+            result = generate_monthly_commissions(db = db, month=int(month), year=int(year))
             return render_template('agent_commission.html', month = month, year = year, commissions = result)
             
-    return render_template('agent_commission.html', month = 12, year = 2022, commissions = generate_monthly_commissions(month=12, year=2022))
+    return render_template('agent_commission.html', month = 12, year = 2022, commissions = generate_monthly_commissions(db = db, month=12, year=2022))

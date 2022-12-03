@@ -1,16 +1,18 @@
 from flaskr_app.models.models import AgentMonthlyCommission, Agent, Buyer, House, Seller, Listing, Sale, Office
-from db_data.generate_data import generate_agent, generate_office, generate_seller, generate_house, generate_buyer
+from db_data.generate_data import generate_agent, generate_seller, generate_house, generate_buyer
 import uuid
 import datetime
+import random
+import string
 
 
 def test_data(db):
-    # insert initial data for office, real estate agent, listings and buyers information
+
     agents = generate_agent(5)
     db.session.add_all(agents)
-    db.sesssion.commit()
+    db.session.commit()
 
-    offices = generate_office(5)
+    offices = generate_office(5, agents=agents)
     sellers = generate_seller(5)
     houses = generate_house(5)
 
@@ -81,3 +83,27 @@ def test_data(db):
     query = db.session.query(Sale).all()
     for s in query:
         print(s)
+
+
+def generate_office(n, agents):
+    """A function used to generate n random instances of an office for the Office table."""
+
+    sample_agents = random.choices(agents, k=n)
+
+    print("🔄 Generating offices ... ")
+
+    offices = []
+    for i in range(n):
+        office_id = str(uuid.uuid4())
+        name = ''.join(random.choice(string.ascii_uppercase) for i in range(random.randint(1, 20)))
+        zipcode = int(''.join(random.choice("0123456789") for i in range(5)))
+
+        office = Office(office_id = str(office_id),
+                  name=name,
+                  zipcode=zipcode)
+
+        office.agents.append(sample_agents[i])
+
+        offices.append(office)
+
+    return offices

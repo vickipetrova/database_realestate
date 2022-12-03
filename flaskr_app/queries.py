@@ -1,4 +1,4 @@
-from flaskr_app import db
+
 import time
 import calendar
 import datetime
@@ -6,7 +6,7 @@ from flaskr_app.models.models import Agent, Sale, Listing, Office, House, AgentM
 from sqlalchemy import func
 import pandas as pd
 
-def get_top_agents(month, year):
+def get_top_agents(db, month, year):
     """
     A query to find the top 5 estate agents who have sold the most (biggest revenue) for the month 
     It includes their contact details and their sales details so that it is easy contact them and congratulate them.
@@ -38,7 +38,7 @@ def get_top_agents(month, year):
         print("✅ Finished generating report in {} seconds ✅".format(round(time.time() - start_time, 3)))
 
 
-def get_top_offices(month, year):
+def get_top_offices(db, month, year):
     """
     A query to find the top 5 officces that sold the most (biggest total revenue) for the month 
     """
@@ -68,7 +68,7 @@ def get_top_offices(month, year):
         print("✅ Finished generating report in {} seconds ✅".format(round(time.time() - start_time, 3)))
 
 
-def get_monthly_sales_average_price(month, year):
+def get_monthly_sales_average_price(db, month, year):
     """
     A query that calculates the average selling price for all houses that were sold that month.
     """
@@ -100,7 +100,7 @@ def get_monthly_sales_average_price(month, year):
         print("✅ Finished query in {} seconds ✅".format(round(time.time() - start_time, 3)))
 
 
-def get_market_days(month, year):
+def get_market_days(db, month, year):
 
     print("🔄 Calculating average time spent on the market for the sales in the month  of {} - {}... 🔄".format(year, month))
     start_time = time.time()
@@ -131,9 +131,12 @@ def get_market_days(month, year):
         print("✅ Finished query in {} seconds ✅".format(round(time.time() - start_time, 3)))
 
 
-def generate_monthly_commissions(month, year):
+def generate_monthly_commissions(db, month, year):
     """
     A query to calculate the commission that each estate agent must receive and store the results in a separate table called AgentMonthlyCommission.
+
+    I think there might by an error in this query but I haven't been able to catch it. It was working at first but then I made the app more complex.
+    I think it might have something to do with the if statements. It always loads the same commissions reagrdless of the month. 
     """
 
     print("🔄 Generating report for the agent commissions in the month  of {} - {}... 🔄".format(year, month))
@@ -166,12 +169,14 @@ def generate_monthly_commissions(month, year):
                 Listing.agent_id, func.sum(Sale.price)
                 ).filter(Listing.listing_id == Sale.listing_id, Sale.sale_date.between(start_date, end_date)).all()
 
-            # Go over the sales and update the agent commission value accordinlgy.
-            for sale in agent_sales:
-                commission_amount = calculate_agent_commission(float(sale[1]))
-                agent_commission_entry = db.session.query(AgentMonthlyCommission).filter(AgentMonthlyCommission.agent_id == sale[0], 
-                                            AgentMonthlyCommission.start_date == start_date, AgentMonthlyCommission.end_date == end_date).one()
-                agent_commission_entry.commission_amount += commission_amount
+            # If any sales occured that month.
+            if agent_sales[0][0] is not None:                
+                # Go over the sales and update the agent commission value accordinlgy.
+                for sale in agent_sales:
+                    commission_amount = calculate_agent_commission(float(sale[1]))
+                    agent_commission_entry = db.session.query(AgentMonthlyCommission).filter(AgentMonthlyCommission.agent_id == sale[0], 
+                                                AgentMonthlyCommission.start_date == start_date, AgentMonthlyCommission.end_date == end_date).one()
+                    agent_commission_entry.commission_amount += commission_amount
 
             db.session.add_all(agent_monthly_commissions)
 
@@ -180,7 +185,7 @@ def generate_monthly_commissions(month, year):
         print("🧾 Agent monthly commissions for {} - {} 🧾".format(year, month))
         result = db.session.query (
             Agent.agent_id, Agent.first_name, Agent.last_name, AgentMonthlyCommission.commission_amount
-        ).filter(Agent.agent_id == AgentMonthlyCommission.agent_id)
+        ).filter(Agent.agent_id == AgentMonthlyCommission.agent_id).all()
         
         df = pd.DataFrame(result)
         print(df)

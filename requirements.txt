@@ -1,4 +1,9 @@
+Faker==15.3.4
 Flask==2.2.2
+Flask_AppBuilder==4.1.6
+Flask_Login==0.6.2
 flask_sqlalchemy==3.0.2
+Flask_Testing==0.8.1
 pandas==1.5.2
 SQLAlchemy==1.4.44
+Werkzeug==2.2.2
