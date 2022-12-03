@@ -44,5 +44,27 @@ Use the following commands to initialize the databse and run the app. You can co
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
-python3 main.py
+python3 app.py
 ```
+Then open another terminal to load the randomly generated data.
+```bash
+python3 insert_data.py
+```
+
+Reload the app in the browser to load the data. 
+
+# Running the tests
+
+## MacOS
+
+Use the following commands to initialize the databse and run the app. You can copy-paste all commands at once in the terminal:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+python3 test.py
+```
+
+# UML Diagram of the Database Schema
+![UML](uml.png "UML Diagram")
