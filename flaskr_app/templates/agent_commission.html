@@ -1,0 +1,41 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+<h1 class="title">
+  Agent Commissions in the month of {{year}} - {{month}}
+</h1>
+
+<form method="post">
+    <label for="month">Month</label>
+    <input type = "number" name="month" id="month"
+      value="{{ request.form['month'] or month }}" required>
+    <label for="year">Year</label>
+    <input type = "number" name="year" id="year"
+      value="{{ request.form['year'] or year }}" required>
+
+    <input type="submit" value="Save">
+</form>
+
+
+<table class="table"> 
+    <thead>
+      <tr>
+          <th class="phone">Agent ID</th>
+          <th class = "name"> First Name</th>
+          <th class="name">Last Name</th>
+          <th class="revenue">Total Commission</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for commission in commissions %}
+    <tr> 
+      <td> {{ commission[0] }} </td>
+      <td> {{ commission[1] }} </td>
+      <td> {{ commission[2] }} </td>
+      <td> {{ commission[3] }} </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Vicki Petrova">
+    <meta name="description" content="Real Estate Agency Database Web Service.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Estate-DB</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'images/hasbulla.png')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <section class="hero is-primary is-fullheight">
+
+        <div class="hero-head">
+            <!-- Nav bar taken from bootstrap documentation https://getbootstrap.com/docs/4.3/components/navbar/ -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">🏡</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('login')}}">Login</a>
+                    </li>
+                    {% block navbar %}{% endblock %}
+                  </ul>
+                </div>
+            </nav>
+        </div>
+        <header>
+            <!-- title on the page -->
+            {% block header %}{% endblock %}
+        </header>
+
+        {% with messages = get_flashed_messages()%}
+        {% if messages %}
+            {% for msg in messages %}
+                <center><p>{{msg}}</p></center>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+               {% block content %}
+               {% endblock %}
+            </div>
+        </div>
+    </section>
+</body>
+</html>

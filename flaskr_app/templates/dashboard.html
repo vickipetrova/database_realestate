@@ -1,0 +1,48 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+<h1 class="title">
+    Welcome to the Admin dashboard! 👋
+</h1> <br>
+<h2 class="subtitle"> Showing summary for the period of {{year}}-{{month}}</h2>
+
+<!-- cards taken from boostrap https://getbootstrap.com/docs/4.0/components/card/ -->
+  <div class="card-deck">
+    <div class="card">
+      <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/195/195492.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Average Sale Duration</h5>
+        <p class="card-text">The houses sold during the month of {{year}}-{{month}} spent {{average_sale_duration}} days on the market on average.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="https://img.freepik.com/free-vector/stack-money-gold-coins-3d-cartoon-style-icon-coins-with-dollar-sign-wad-cash-currency-flat-vector-illustration-wealth-investment-success-savings-economy-profit-concept_74855-26108.jpg?w=2000" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Average Sale Price</h5>
+        <p class="card-text">The average sale price of all houses sold during the month of {{year}}-{{month}} was: {{average_sale_price}} dollars.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/5305/5305244.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Total Sales</h5>
+        <p class="card-text">The total number of sales in the month of {{year}}-{{month}} was 15.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div><br>
+
+<form method="post">
+  <label for="month">Month</label>
+  <input type = "number" name="month" id="month"
+    value="{{ request.form['month'] or month }}" required>
+  <label for="year">Year</label>
+  <input type = "number" name="year" id="year"
+    value="{{ request.form['year'] or year }}" required>
+
+  <input type="submit" value="Save">
+</form>
+
+{% endblock %}

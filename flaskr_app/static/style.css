@@ -1,0 +1,11 @@
+.container
+{
+   margin:5px 5px 5px 5px;
+   width:auto;
+   height:auto;
+   position:relative;
+   overflow:hidden;
+   border:solid;
+   overflow: auto;
+   float:left;
+}

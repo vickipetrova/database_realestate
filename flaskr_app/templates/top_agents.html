@@ -1,0 +1,43 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+<h1 class="title">
+  Top 5 Agents in {{year}} - {{month}}
+</h1>
+
+<form method="post">
+    <label for="month">Month</label>
+    <input type = "number" name="month" id="month"
+      value="{{ request.form['month'] or month }}" required>
+    <label for="year">Year</label>
+    <input type = "number" name="year" id="year"
+      value="{{ request.form['year'] or year }}" required>
+
+    <input type="submit" value="Save">
+</form>
+
+
+<table class="table"> 
+    <thead>
+      <tr>
+          <th class = "name"> First Name</th>
+          <th class="name">Last Name</th>
+          <th class="phone">Phone Number</th>
+          <th class="email">Email</th>
+          <th class="revenue">Total Revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for agent in agents %}
+    <tr> 
+      <td> {{ agent[0] }} </td>
+      <td> {{ agent[1] }} </td>
+      <td> {{ agent[2] }} </td>
+      <td> {{ agent[3] }} </td>
+      <td> {{ agent[4] }} </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+
+{% endblock %}
