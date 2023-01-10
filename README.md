@@ -1,6 +1,6 @@
 # About this repo: Real Estate Head Office Database
 
-This is a database for a hypothetical Real Estate Head Office. It was created for an assignments for my CS162: SOftware engineering course. The original assignment description can be found here: https://github.com/minerva-university/cs162/blob/main/assignments/4_database.md
+This is a database for a hypothetical Real Estate Head Office. It was created for an assignments for my CS162: Software engineering course. The original assignment description can be found here: https://github.com/minerva-university/cs162/blob/main/assignments/4_database.md
 
 ## Description
 
@@ -46,3 +46,22 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 python3 main.py
 ```
+
+# Technologies and Lessons
+
+I used the following technologies:
+- Python 
+- Python random library
+- SQLAlchemy
+- Flask
+- HTML
+- CSS
+
+
+In this project I practiced and learned the following concepts:
+- SQLAlchemy
+- Database architecture 
+- UML Diagram
+- Web app development
+- OOP programming
+- Making efficient and protected (from injection attack) queries for SQL and using indexes
